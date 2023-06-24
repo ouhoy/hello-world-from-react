@@ -11,20 +11,24 @@ function App() {
 
         const result = await fetch("https://api.adviceslip.com/advice");
         const data = await result.json();
-        setAdvice(data.slip.advice)
+
+
+        setAdvice(data?.slip?.advice)
         setCounter(counter + 1)
-        return data
+
     }
 
     useEffect(() => {
+
         getAdvice()
+
     }, [])
 
     return (
         <div className="App">
             <h4>{advice}</h4>
             <button onClick={getAdvice}>Get Advice</button>
-            <Message count={counter} />
+            <Message count={counter}/>
 
         </div>
     );
