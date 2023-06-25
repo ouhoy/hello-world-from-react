@@ -4,22 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b50f6c21-4fc6-4947-86f0-7483493584ad" name="Changes" comment="">
+    <list default="true" id="c6350fe9-b4c6-4cd2-ae71-5dc47ae73704" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/hello-world-from-react.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hello-world-from-react.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pure_react/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pure_react/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="HTML File" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -27,46 +21,40 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2ReCQ2ZaIC754RkKDVLRBkGHyht" />
+  <component name="ProjectId" id="2Rh4cbMzMtSPzkbDRZ90jKdmf0g" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/abdel/Desktop/DEV/hello-world-from-react",
+    "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\abdel\Desktop\DEV\hello-world-from-react" />
-      <recent name="C:\Users\abdel\Desktop\DEV\hello-world-from-react\pure_react" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\abdel\Desktop\DEV\hello-world-from-react\first-react-project" />
-      <recent name="C:\Users\abdel\Desktop\DEV\hello-world-from-react" />
-    </key>
+  <component name="RunManager">
+    <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b50f6c21-4fc6-4947-86f0-7483493584ad" name="Changes" comment="" />
-      <created>1687601146632</created>
+      <changelist id="c6350fe9-b4c6-4cd2-ae71-5dc47ae73704" name="Changes" comment="" />
+      <created>1687689059566</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1687601146632</updated>
-      <workItem from="1687601151660" duration="2357000" />
+      <updated>1687689059566</updated>
+      <workItem from="1687689065237" duration="1819000" />
     </task>
     <servers />
   </component>
