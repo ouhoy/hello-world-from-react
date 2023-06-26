@@ -1,6 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
 import pizzaData from "./data.js";
+import styles from "./index.css"
 
 function Pizza() {
 
@@ -15,7 +16,7 @@ function Pizza() {
 }
 
 function App() {
-    return (<div>
+    return (<div className={styles.container}>
 
         <Header/>
         <Menu/>
@@ -25,19 +26,21 @@ function App() {
 }
 
 function Header() {
-    return <h1>React Pizza App</h1>
+    return <header className={styles.header}>
+        <h1>React Pizza App</h1>
+    </header>
 }
 
 function Menu() {
-    return <div>
+    return <main className={styles.menu}>
 
         <Pizza/>
 
-    </div>
+    </main>
 }
 
 function Footer() {
-    return <footer>All rights are acknowledged</footer>
+    return <footer className={styles.footer}>All rights are acknowledged</footer>
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
