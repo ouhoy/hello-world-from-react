@@ -3,26 +3,28 @@ import ReactDOM from "react-dom/client"
 import pizzaData from "./data.js";
 import styles from "./index.css"
 
-function Pizza() {
-
-    return (
-        <div>
-            <img src={pizzaData[0].photoName} alt={pizzaData[0].name}/>
-            <h3>{pizzaData[0].name}</h3>
-            <p>{pizzaData[0].ingredients}</p>
-            <p><b>{pizzaData[0].price}</b></p>
-        </div>
-    )
-}
 
 function App() {
     return (<div className={styles.container}>
 
         <Header/>
         <Menu/>
-        <Menu/>
         <Footer/>
     </div>);
+}
+
+function Pizza(props) {
+
+    return (
+        <div className={styles.pizza}>
+            <img src={props.photoName} alt={props.name}/>
+            <div>
+                <h3>{props.name}</h3>
+                <p>{props.ingredients}</p>
+            </div>
+            <span>{props.price}</span>
+        </div>
+    )
 }
 
 function Header() {
@@ -32,9 +34,14 @@ function Header() {
 }
 
 function Menu() {
-    return <main className={styles.menu}>
 
-        <Pizza/>
+    pizzaData.forEach(data=>{
+
+    })
+
+    return <main >
+
+
 
     </main>
 }
