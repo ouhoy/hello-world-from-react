@@ -35,12 +35,13 @@ function Header() {
 
 function Menu() {
 
-    pizzaData.forEach(data=>{
 
-    })
-
-    return <main >
-
+    return <main className={styles.menu}>
+        <div>
+            {pizzaData.map(pizza => (<Pizza photoName={pizza.photoName} name={pizza.name} price={pizza.price}
+                                            ingredients={pizza.ingredients}/>)
+            )}
+        </div>
 
 
     </main>
