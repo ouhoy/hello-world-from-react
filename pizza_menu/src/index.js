@@ -13,18 +13,19 @@ function App() {
     </div>);
 }
 
+
 function Pizza(props) {
-    pizzaData = props.pizzaData
-    console.log(pizzaData)
+    const pizzaObj = props.pizzaData
+    console.log(props.pizzaData.name)
     return (
-        <div className={styles.pizza}>
-            <img src={pizzaData.photoName} alt={pizzaData.name}/>
+        <li className={styles.pizza}>
+            <img src={pizzaObj.photoName} alt={pizzaData.name}/>
             <div>
-                <h3>{pizzaData.name}</h3>
-                <p>{pizzaData.ingredients}</p>
+                <h3>{pizzaObj.name}</h3>
+                <p>{pizzaObj.ingredients}</p>
             </div>
-            <span>{pizzaData.price}</span>
-        </div>
+            <span>{pizzaObj.price}</span>
+        </li>
     )
 }
 
@@ -38,16 +39,23 @@ function Menu() {
 
 
     return <main className={styles.menu}>
-        <div>
-            {pizzaData.map(pizza => (<Pizza pizzaData={pizza}/>))}
-        </div>
+        <ul className={styles.pizzas}>
+            {pizzaData.map(pizza => (<Pizza pizzaData={pizza} key={pizza.name}/>))}
+        </ul>
 
 
     </main>
 }
 
 function Footer() {
-    return <footer className={styles.footer}>All rights are acknowledged</footer>
+
+    const time = new Date().getHours()
+    const OPEN_HOUR = 9
+    const CLOSE_HOUR = 22
+
+    const isOpen = OPEN_HOUR <= time && time <= CLOSE_HOUR
+
+    return <footer className={styles.footer}>{isOpen ? "Open" : "Close"}</footer>
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
