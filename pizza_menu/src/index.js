@@ -1,11 +1,10 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
 import pizzaData from "./data.js";
-import styles from "./index.css"
-
+import "./index.css"
 
 function App() {
-    return (<div className={styles.container}>
+    return (<div className="container">
 
         <Header/>
         <Menu/>
@@ -16,9 +15,9 @@ function App() {
 
 function Pizza(props) {
     const pizzaObj = props.pizzaData
-    console.log(props.pizzaData.name)
+
     return (
-        <li className={styles.pizza}>
+        <li className="pizza">
             <img src={pizzaObj.photoName} alt={pizzaData.name}/>
             <div>
                 <h3>{pizzaObj.name}</h3>
@@ -30,7 +29,7 @@ function Pizza(props) {
 }
 
 function Header() {
-    return <header className={styles.header}>
+    return <header className="header">
         <h1>React Pizza App</h1>
     </header>
 }
@@ -38,8 +37,8 @@ function Header() {
 function Menu() {
 
 
-    return <main className={styles.menu}>
-        <ul className={styles.pizzas}>
+    return <main className="menu">
+        <ul className="pizzas">
             {pizzaData.map(pizza => (<Pizza pizzaData={pizza} key={pizza.name}/>))}
         </ul>
 
@@ -54,8 +53,15 @@ function Footer() {
     const CLOSE_HOUR = 22
 
     const isOpen = OPEN_HOUR <= time && time <= CLOSE_HOUR
+    const customerFace = isOpen ? ":)" : ":(";
 
-    return <footer className={styles.footer}>{isOpen ? "Open" : "Close"}</footer>
+    return <footer className="footer">
+        <div className="order">
+            <p>The store is {isOpen ? "open" : "closed"} right now {customerFace}</p>
+            <button className="btn">Order</button>
+
+        </div>
+    </footer>
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
