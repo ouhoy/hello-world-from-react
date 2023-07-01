@@ -13,17 +13,17 @@ function App() {
 }
 
 
-function Pizza(props) {
-    const pizzaObj = props.pizzaData
+function Pizza({pizzaData}) {
+
 
     return (
-        <li className="pizza">
-            <img src={pizzaObj.photoName} alt={pizzaData.name}/>
+        <li className={`pizza ${pizzaData.soldOut ? "sold-out" : null}`}>
+            <img src={pizzaData.photoName} alt={pizzaData.name}/>
             <div>
-                <h3>{pizzaObj.name}</h3>
-                <p>{pizzaObj.ingredients}</p>
+                <h3>{pizzaData.name}</h3>
+                <p>{pizzaData.ingredients}</p>
             </div>
-            <span>{pizzaObj.price}</span>
+            <span>{!pizzaData.soldOut ? `$${pizzaData.price}` : "Sold Out"}</span>
         </li>
     )
 }
@@ -36,14 +36,16 @@ function Header() {
 
 function Menu() {
 
+    return (<main className="menu">
 
-    return <main className="menu">
-        <ul className="pizzas">
+        <h2>Our Menu</h2>
+        {!pizzaData.isEmpty ? <ul className="pizzas">
             {pizzaData.map(pizza => (<Pizza pizzaData={pizza} key={pizza.name}/>))}
-        </ul>
+        </ul> : <p>We are out of orders right now :(</p>
+        }
 
 
-    </main>
+    </main>)
 }
 
 function Footer() {
