@@ -17,7 +17,7 @@ function Pizza({pizzaData}) {
 
 
     return (
-        <li className={`pizza ${pizzaData.soldOut ? "sold-out" : null}`}>
+        <li className={`pizza${pizzaData.soldOut ? " sold-out" : ""}`}>
             <img src={pizzaData.photoName} alt={pizzaData.name}/>
             <div>
                 <h3>{pizzaData.name}</h3>
