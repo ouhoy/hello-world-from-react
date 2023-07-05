@@ -7,18 +7,18 @@ export default function App() {
 
     function handlePrevious() {
         if (steps === 1) return;
-        setSteps(steps - 1)
+        setSteps(step => step - 1)
     }
 
     function handleNext() {
         if (steps >= messages.length) return
-        setSteps(steps + 1)
+        setSteps(step => step + 1)
     }
 
     return (
         <>
             <button className="close" onClick={() => {
-                setIsOpen(!isOpen)
+                setIsOpen(open => !open)
             }}>&times;</button>
             {isOpen && (<div className="steps">
 
