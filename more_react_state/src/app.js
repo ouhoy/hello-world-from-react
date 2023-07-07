@@ -1,3 +1,39 @@
+import {useState} from "react";
+
 export default function App() {
-    return <div>Hello world</div>
+    return (<div>
+        <Counter/>
+
+    </div>)
+}
+
+
+function Counter() {
+    const [count, setCounter] = useState(0);
+    const [doubler, setDoubler] = useState(1);
+    const date = new Date()
+
+    date.setDate(date.getDate() + count)
+
+
+    return (<div style={{marginTop: "5%"}}>
+
+        <center>
+            <button onClick={() => setCounter(num => num - doubler)}>-</button>
+
+            <span style={{margin: "0 16px"}}>Count: {count}</span>
+
+            <button onClick={() => setCounter(num => num + doubler)}>+</button>
+
+            <p>{date.toDateString()}</p>
+
+            <button onClick={() => setDoubler(double => double - 1)}>-</button>
+            <span style={{margin: "0 16px"}}>Doubler: {doubler}</span>
+            <button onClick={() => setDoubler(double => double + 1)}>+</button>
+
+        </center>
+
+
+    </div>)
+
 }
