@@ -21,7 +21,6 @@ export default function App() {
                 setIsOpen(open => !open)
             }}>&times;</button>
             {isOpen && (<div className="steps">
-
                 <div className="numbers">
                     <div className={steps >= 1 ? "active" : ""}>1</div>
                     <div className={steps >= 2 ? "active" : ""}>2</div>
