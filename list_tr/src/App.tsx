@@ -31,9 +31,19 @@ function From() {
     const [description, setDescription] = useState("")
     const [quantity, setQuantity] = useState(1)
 
+
     function handleSubmit(e: FormEvent) {
         e.preventDefault()
 
+        if (!description) return
+
+        const newItem: item = {id: initialItems.length + 1, description, quantity, packed: false}
+        initialItems.push(newItem)
+        console.log(initialItems)
+
+        // Rest form
+        setQuantity(1)
+        setDescription("")
     }
 
     return <form className={"add-form"} onSubmit={handleSubmit}>
