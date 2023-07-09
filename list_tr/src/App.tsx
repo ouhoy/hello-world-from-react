@@ -1,4 +1,4 @@
-import React, {FormEvent} from 'react';
+import React, {FormEvent, useState} from 'react';
 import {initialItems} from "./data";
 
 type item = {
@@ -28,22 +28,25 @@ function Logo() {
 
 function From() {
 
+    const [description, setDescription] = useState("")
+    const [quantity, setQuantity] = useState(1)
+
     function handleSubmit(e: FormEvent) {
         e.preventDefault()
-        console.log("Clicked!")
+
     }
 
     return <form className={"add-form"} onSubmit={handleSubmit}>
 
         <h3>Add More Items 🕶️</h3>
 
-        <select>
+        <select value={quantity} onChange={e => setQuantity(+e.target.value)}>
 
             {Array.from({length: 12}, (_, i) => i + 1).map(num => {
                 return <option key={num} value={num}>{num}</option>
             })}
         </select>
-        <input type={"text"} placeholder={"Item"}/>
+        <input type={"text"} placeholder={"Item"} value={description} onChange={e => setDescription(e.target.value)}/>
         <button>Add</button>
     </form>
 }
