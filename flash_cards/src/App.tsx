@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {questions} from "./data";
+
+type question = {
+     id: number,
+    question: string,
+    answer: string
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <FlashCards/>
+        </div>
+    );
 }
+
+
+function FlashCards() {
+    return <div className={"flashcards"}>
+
+        {questions.map((question: question) => (
+            <div key={question.id}>
+
+                <p>{question.question}</p>
+
+            </div>
+        ))}
+
+    </div>;
+}
+
 
 export default App;
