@@ -31,6 +31,14 @@ function Counter() {
             <button onClick={() => setDoubler(double => double - 1)}>-</button>
             <span style={{margin: "0 16px"}}>Doubler: {doubler}</span>
             <button onClick={() => setDoubler(double => double + 1)}>+</button>
+            <button onClick={() => {
+
+                setDoubler(0)
+                setCounter(0)
+
+            }}>Reset</button>
+
+
 
         </center>
 
