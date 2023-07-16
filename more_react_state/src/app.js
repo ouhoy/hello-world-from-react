@@ -33,7 +33,7 @@ function Counter() {
             <button onClick={() => setDoubler(double => double + 1)}>+</button>
             <button onClick={() => {
 
-                setDoubler(0)
+                setDoubler(1)
                 setCounter(0)
 
             }}>Reset</button>

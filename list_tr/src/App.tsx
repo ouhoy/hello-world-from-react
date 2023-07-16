@@ -11,11 +11,21 @@ type item = {
 
 
 function App() {
+
+    const [items, setItems] = useState<item[]>([])
+
+    // We need to left up the state to the closes parent component
+    function handleAddItems(item: item): void {
+
+
+        setItems((c: item[]) => [...initialItems, ...c, item])
+    }
+
     return (
         <div className={"app"}>
             <Logo/>
-            <From/>
-            <PackingList/>
+            <From onAddItems={handleAddItems}/>
+            <PackingList items={items}/>
             <Stats/>
 
         </div>
@@ -26,7 +36,8 @@ function Logo() {
     return <h1>Random Practice List</h1>
 }
 
-function From() {
+
+function From({onAddItems}: { onAddItems: (item:item)=>void }) {
 
     const [description, setDescription] = useState("")
     const [quantity, setQuantity] = useState(1)
@@ -39,7 +50,9 @@ function From() {
 
         const newItem: item = {id: initialItems.length + 1, description, quantity, packed: false}
         initialItems.push(newItem)
-        console.log(initialItems)
+
+
+        onAddItems(newItem)
 
         // Rest form
         setQuantity(1)
@@ -61,12 +74,12 @@ function From() {
     </form>
 }
 
-function PackingList() {
+function PackingList({items}: { items: item[] }) {
 
 
     return <div className={"list"}>
         <ul>
-            {initialItems.map((item: item) => <Item key={item.id} item={item}/>)}
+            {items.map((item: item) => <Item key={item.id} item={item}/>)}
         </ul>
     </div>
 }
