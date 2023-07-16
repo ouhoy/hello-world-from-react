@@ -9,23 +9,26 @@ type item = {
 
 }
 
-
 function App() {
 
-    const [items, setItems] = useState<item[]>([])
+    const [items, setItems] = useState<item[]>([...initialItems])
 
     // We need to left up the state to the closes parent component
     function handleAddItems(item: item): void {
 
 
-        setItems((c: item[]) => [...initialItems, ...c, item])
+        setItems((c: item[]) => [...c, item])
+    }
+
+    function handelDelete(id: number) {
+        setItems(items => items.filter(item => item.id !== id))
     }
 
     return (
         <div className={"app"}>
             <Logo/>
             <From onAddItems={handleAddItems}/>
-            <PackingList items={items}/>
+            <PackingList items={items} onDeleteItem={handelDelete}/>
             <Stats/>
 
         </div>
@@ -37,7 +40,7 @@ function Logo() {
 }
 
 
-function From({onAddItems}: { onAddItems: (item:item)=>void }) {
+function From({onAddItems}: { onAddItems: (item: item) => void }) {
 
     const [description, setDescription] = useState("")
     const [quantity, setQuantity] = useState(1)
@@ -74,21 +77,25 @@ function From({onAddItems}: { onAddItems: (item:item)=>void }) {
     </form>
 }
 
-function PackingList({items}: { items: item[] }) {
+function PackingList({items, onDeleteItem}: { items: item[], onDeleteItem: (id: number) => void }) {
 
 
     return <div className={"list"}>
         <ul>
-            {items.map((item: item) => <Item key={item.id} item={item}/>)}
+            {items.map((item: item) => <Item key={item.id} item={item} onDeleteItem={onDeleteItem}/>)}
         </ul>
     </div>
 }
 
-function Item({item}: { item: item }) {
+function Item({item, onDeleteItem}: { item: item, onDeleteItem: (id: number) => void }) {
 
     return <li key={item.id}>
         <span style={item.packed ? {textDecoration: "line-through"} : {}}>{item.quantity} {item.description}</span>
-        <button style={{color: "white"}}>&times;</button>
+        <button style={{color: "white"}} onClick={() => {
+            onDeleteItem(item.id);
+            console.log(initialItems)
+            initialItems.push({id: initialItems.length + 1, description: "Hola", packed: false, quantity: 12})
+        }}>&times;</button>
 
     </li>
 }
