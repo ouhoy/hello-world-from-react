@@ -1,5 +1,5 @@
 import React, {FormEvent, useState} from 'react';
-import {initialItems} from "./data";
+
 
 type item = {
     id: number,
@@ -11,7 +11,7 @@ type item = {
 
 function App() {
 
-    const [items, setItems] = useState<item[]>([...initialItems])
+    const [items, setItems] = useState<item[]>([])
 
     // We need to left up the state to the closes parent component
     function handleAddItems(item: item): void {
@@ -24,12 +24,16 @@ function App() {
         setItems(items => items.filter(item => item.id !== id))
     }
 
+    function handelToggle(id: number) {
+        setItems(items => items.map(item => item.id === id ? {...item, packed: !item.packed} : item))
+    }
+
     return (
         <div className={"app"}>
             <Logo/>
-            <From onAddItems={handleAddItems}/>
-            <PackingList items={items} onDeleteItem={handelDelete}/>
-            <Stats/>
+            <From onAddItems={handleAddItems} itemsLength={items.length}/>
+            <PackingList items={items} onToggleItem={handelToggle} onDeleteItem={handelDelete}/>
+            <Stats items={items}/>
 
         </div>
     );
@@ -40,7 +44,7 @@ function Logo() {
 }
 
 
-function From({onAddItems}: { onAddItems: (item: item) => void }) {
+function From({onAddItems, itemsLength}: { onAddItems: (item: item) => void, itemsLength: number }) {
 
     const [description, setDescription] = useState("")
     const [quantity, setQuantity] = useState(1)
@@ -50,9 +54,7 @@ function From({onAddItems}: { onAddItems: (item: item) => void }) {
         e.preventDefault()
 
         if (!description) return
-
-        const newItem: item = {id: initialItems.length + 1, description, quantity, packed: false}
-        initialItems.push(newItem)
+        const newItem: item = {id: itemsLength + 1, description, quantity, packed: false}
 
 
         onAddItems(newItem)
@@ -77,33 +79,41 @@ function From({onAddItems}: { onAddItems: (item: item) => void }) {
     </form>
 }
 
-function PackingList({items, onDeleteItem}: { items: item[], onDeleteItem: (id: number) => void }) {
+function PackingList({items, onDeleteItem, onToggleItem}: {
+    items: item[],
+    onDeleteItem: (id: number) => void,
+    onToggleItem: (id: number) => void,
+}) {
 
 
     return <div className={"list"}>
         <ul>
-            {items.map((item: item) => <Item key={item.id} item={item} onDeleteItem={onDeleteItem}/>)}
+            {items.map((item: item) => <Item key={item.id} item={item} onToggleItem={onToggleItem}
+                                             onDeleteItem={onDeleteItem}/>)}
         </ul>
     </div>
 }
 
-function Item({item, onDeleteItem}: { item: item, onDeleteItem: (id: number) => void }) {
+function Item({item, onDeleteItem, onToggleItem}: {
+    item: item,
+    onDeleteItem: (id: number) => void,
+    onToggleItem: (id: number) => void,
+
+}) {
 
     return <li key={item.id}>
+        <input type={"checkbox"} value={`${item.packed}`} onChange={() => onToggleItem(item.id)}/>
         <span style={item.packed ? {textDecoration: "line-through"} : {}}>{item.quantity} {item.description}</span>
-        <button style={{color: "white"}} onClick={() => {
-            onDeleteItem(item.id);
-            console.log(initialItems)
-            initialItems.push({id: initialItems.length + 1, description: "Hola", packed: false, quantity: 12})
-        }}>&times;</button>
+        <button style={{color: "white"}} onClick={() => onDeleteItem(item.id)}>&times;</button>
 
     </li>
 }
 
-function Stats() {
+function Stats({items}: { items: item[] }) {
+    const packedItems = items.filter(item => item.packed)
     return <footer className={"stats"}>
 
-        <em>You have X in your list and already packed X items</em>
+        <em>You have {items.length} in your list and already packed {packedItems.length} items</em>
     </footer>
 }
 
