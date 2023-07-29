@@ -33,7 +33,7 @@ function App() {
         <div className={"app"}>
             <Logo/>
             <From onAddItems={handleAddItems} itemsLength={items.length}/>
-            <PackingList items={items} onToggleItem={handelToggle} onDeleteItem={handelDelete}/>
+            <PackingList items={items} setItems={setItems} onToggleItem={handelToggle} onDeleteItem={handelDelete}/>
             <Stats items={items}/>
 
         </div>
@@ -80,8 +80,9 @@ function From({onAddItems, itemsLength}: { onAddItems: (item: item) => void, ite
     </form>
 }
 
-function PackingList({items, onDeleteItem, onToggleItem}: {
+function PackingList({items, setItems, onDeleteItem, onToggleItem}: {
     items: item[],
+    setItems: Function,
     onDeleteItem: (id: number) => void,
     onToggleItem: (id: number) => void,
 }) {
@@ -103,7 +104,12 @@ function PackingList({items, onDeleteItem, onToggleItem}: {
                 <option value={"description"}>Alphabetically</option>
                 <option value={"packed"}>Packed Status</option>
             </select>
+            <button onClick={() => {
+                setItems([])
+            }}>Clear List
+            </button>
         </div>
+
     </div>
 }
 
