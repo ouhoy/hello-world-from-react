@@ -9,6 +9,7 @@ type item = {
 
 }
 
+
 function App() {
 
     const [items, setItems] = useState<item[]>([])
@@ -85,12 +86,24 @@ function PackingList({items, onDeleteItem, onToggleItem}: {
     onToggleItem: (id: number) => void,
 }) {
 
+    const [sortBy, setSortBy] = useState("input")
+    let sortedItems;
 
+    if (sortBy === "input") sortedItems = items;
+    if (sortBy === "description") sortedItems = items.slice().sort((a, b) => a.description.localeCompare(b.description))
+    if (sortBy === "packed") sortedItems = items.slice().sort((a, b) => Number(b.packed) - Number(a.packed))
     return <div className={"list"}>
         <ul>
-            {items.map((item: item) => <Item key={item.id} item={item} onToggleItem={onToggleItem}
-                                             onDeleteItem={onDeleteItem}/>)}
+            {sortedItems?.map((item: item) => <Item key={item.id} item={item} onToggleItem={onToggleItem}
+                                                    onDeleteItem={onDeleteItem}/>)}
         </ul>
+        <div className={"actions"}>
+            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                <option value={"input"}>Input</option>
+                <option value={"description"}>Alphabetically</option>
+                <option value={"packed"}>Packed Status</option>
+            </select>
+        </div>
     </div>
 }
 
