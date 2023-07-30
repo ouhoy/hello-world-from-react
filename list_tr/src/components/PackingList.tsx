@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Item from "./Item";
-import {ItemType} from "./types/itemTypes";
+import {ItemType} from "../types/itemTypes";
 
 export default function PackingList({items, setItems, onDeleteItem, onToggleItem}: {
     items: ItemType[],

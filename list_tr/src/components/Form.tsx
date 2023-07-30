@@ -1,5 +1,5 @@
 import React, {FormEvent, useState} from "react";
-import {ItemType} from "./types/itemTypes";
+import {ItemType} from "../types/itemTypes";
 
 export default function From({onAddItems, itemsLength}: { onAddItems: (item: ItemType) => void, itemsLength: number }) {
 

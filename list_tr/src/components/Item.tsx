@@ -1,5 +1,5 @@
 import React from "react";
-import {ItemType} from "./types/itemTypes";
+import {ItemType} from "../types/itemTypes";
 
 export default function Item({item, onDeleteItem, onToggleItem}: {
     item: ItemType,

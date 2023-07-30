@@ -3,7 +3,7 @@ import Logo from "./Logo";
 import From from "./Form";
 import PackingList from "./PackingList";
 import Stats from "./Stats";
-import {ItemType} from "./types/itemTypes";
+import {ItemType} from "../types/itemTypes";
 
 
 function App() {
