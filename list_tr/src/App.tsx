@@ -1,24 +1,20 @@
-import React, {FormEvent, useState} from 'react';
-
-
-type item = {
-    id: number,
-    description: string,
-    quantity: number,
-    packed: boolean
-
-}
+import React, {useState} from 'react';
+import Logo from "./Logo";
+import From from "./Form";
+import PackingList from "./PackingList";
+import Stats from "./Stats";
+import {ItemType} from "./types/itemTypes";
 
 
 function App() {
 
-    const [items, setItems] = useState<item[]>([])
+    const [items, setItems] = useState<ItemType[]>([])
 
     // We need to left up the state to the closes parent component
-    function handleAddItems(item: item): void {
+    function handleAddItems(item: ItemType): void {
 
 
-        setItems((c: item[]) => [...c, item])
+        setItems((c: ItemType[]) => [...c, item])
     }
 
     function handelDelete(id: number) {
@@ -40,102 +36,5 @@ function App() {
     );
 }
 
-function Logo() {
-    return <h1>Random Practice List</h1>
-}
-
-
-function From({onAddItems, itemsLength}: { onAddItems: (item: item) => void, itemsLength: number }) {
-
-    const [description, setDescription] = useState("")
-    const [quantity, setQuantity] = useState(1)
-
-
-    function handleSubmit(e: FormEvent) {
-        e.preventDefault()
-
-        if (!description) return
-        const newItem: item = {id: itemsLength + 1, description, quantity, packed: false}
-
-
-        onAddItems(newItem)
-
-        // Rest form
-        setQuantity(1)
-        setDescription("")
-    }
-
-    return <form className={"add-form"} onSubmit={handleSubmit}>
-
-        <h3>Add More Items 🕶️</h3>
-
-        <select value={quantity} onChange={e => setQuantity(+e.target.value)}>
-
-            {Array.from({length: 12}, (_, i) => i + 1).map(num => {
-                return <option key={num} value={num}>{num}</option>
-            })}
-        </select>
-        <input type={"text"} placeholder={"Item"} value={description} onChange={e => setDescription(e.target.value)}/>
-        <button>Add</button>
-    </form>
-}
-
-function PackingList({items, setItems, onDeleteItem, onToggleItem}: {
-    items: item[],
-    setItems: Function,
-    onDeleteItem: (id: number) => void,
-    onToggleItem: (id: number) => void,
-}) {
-
-    const [sortBy, setSortBy] = useState("input")
-    let sortedItems;
-
-    if (sortBy === "input") sortedItems = items;
-    if (sortBy === "description") sortedItems = items.slice().sort((a, b) => a.description.localeCompare(b.description))
-    if (sortBy === "packed") sortedItems = items.slice().sort((a, b) => Number(b.packed) - Number(a.packed))
-    return <div className={"list"}>
-        <ul>
-            {sortedItems?.map((item: item) => <Item key={item.id} item={item} onToggleItem={onToggleItem}
-                                                    onDeleteItem={onDeleteItem}/>)}
-        </ul>
-        <div className={"actions"}>
-            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-                <option value={"input"}>Input</option>
-                <option value={"description"}>Alphabetically</option>
-                <option value={"packed"}>Packed Status</option>
-            </select>
-            <button onClick={() => {
-                setItems([])
-            }}>Clear List
-            </button>
-        </div>
-
-    </div>
-}
-
-function Item({item, onDeleteItem, onToggleItem}: {
-    item: item,
-    onDeleteItem: (id: number) => void,
-    onToggleItem: (id: number) => void,
-
-}) {
-
-    return <li key={item.id}>
-        <input type={"checkbox"} value={`${item.packed}`} onChange={() => onToggleItem(item.id)}/>
-        <span style={item.packed ? {textDecoration: "line-through"} : {}}>{item.quantity} {item.description}</span>
-        <button style={{color: "white"}} onClick={() => onDeleteItem(item.id)}>&times;</button>
-
-    </li>
-}
-
-function Stats({items}: { items: item[] }) {
-    if (!items.length) return <footer className={"stats"}><p><em>Add some items to the list!</em></p></footer>
-    const packedItems = items.filter(item => item.packed)
-    const percentage = Math.round((packedItems.length / items.length) * 100)
-    return <footer className={"stats"}><em>
-        {percentage === 100 ? `You are good to go` : `You have ${items.length} in your list and already packed ${packedItems.length} items ${percentage}%`}
-    </em>
-    </footer>
-}
 
 export default App;
