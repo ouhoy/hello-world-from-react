@@ -29,10 +29,13 @@ export default function App() {
 
                 <div className="message">Step {steps}: {messages[steps - 1]}</div>
                 <div className="buttons">
-                    <button style={{backgroundColor: "#7f5bf3", color: "white"}} onClick={handlePrevious}>Previous
-                    </button>
-                    <button style={{backgroundColor: "#7f5bf3", color: "white"}} onClick={handleNext}>Next
-                    </button>
+
+                    <Button onClick={handlePrevious} textColor={"white"}
+                            bgColor={`${steps === 1 ? "#9d9d9d" : "#7f5bf3"}`}>⬅️ Previous</Button>
+                    <Button onClick={handleNext} textColor={"white"}
+                            bgColor={`${steps >= messages.length ? "#9d9d9d" : "#7f5bf3"}`}>Next
+                        ➡️</Button>
+
                 </div>
 
             </div>)}
@@ -42,3 +45,6 @@ export default function App() {
 
 }
 
+function Button({textColor, bgColor, onClick, children}) {
+    return <button style={{backgroundColor: `${bgColor}`, color: `${textColor}`}} onClick={onClick}>{children}</button>
+}
