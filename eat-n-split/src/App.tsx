@@ -14,7 +14,7 @@ function App() {
 
 function FriendsList() {
     return <ul>
-        {initialFriends.map(friend => friend.name)}
+        {initialFriends.map(friend => <li>{friend.name}</li>)}
     </ul>
 }
 
