@@ -32,8 +32,9 @@ body {
     column-gap: 4rem;
     align-items: start;
 }
-
 .button {
+    min-width: 64px;
+    min-height: 32px;
     background-color: var(--color-medium);
     color: #343a40;
     padding: 0.8rem 1.2rem;
@@ -43,6 +44,7 @@ body {
     cursor: pointer;
     transition: 0.3s;
 }
+
 
 .button:hover {
     background-color: var(--color-dark);

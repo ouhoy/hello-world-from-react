@@ -12,7 +12,7 @@ interface Friend {
 function App() {
     const [friends, setFriends] = useState([...initialFriends])
     const [showAdFriend, setShowAdFriend] = useState(false)
-
+    const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null)
 
     function handleShowAddFriend() {
         setShowAdFriend(show => !show)
@@ -23,27 +23,54 @@ function App() {
         setShowAdFriend(false)
     }
 
+    function handleSelection(friend: Friend) {
+
+
+        setSelectedFriend((current) => {
+            if (current) return current.id === friend.id ? null : friend
+
+            return friend
+        })
+        setShowAdFriend(false)
+    }
+
     return (
         <div className="app">
             <div className={"sidebar"}>
-                <FriendsList friends={friends}/>
+                <FriendsList onSelection={handleSelection} selectedFriend={selectedFriend} friends={friends}/>
+
                 {showAdFriend && <FormAddFriend onAddFriend={handleAddFriend}/>}
+
                 <SubmitButton onClick={handleShowAddFriend}>{showAdFriend ? "Close" : "Add friend"}</SubmitButton>
             </div>
-            <FormSplitBill/>
+            {selectedFriend && <FormSplitBill selectedFriend={selectedFriend}/>}
         </div>
     );
 }
 
-function FriendsList({friends}: { friends: Friend [] }) {
+function FriendsList({friends, onSelection, selectedFriend}: {
+    friends: Friend [],
+    selectedFriend: Friend | null,
+    onSelection: (friend: Friend) => void
+}) {
     return <ul>
-        {friends.map(friend => <Friend friend={friend} key={friend.id}/>)}
+        {friends.map(friend => <Friend onSelection={onSelection} selectedFriend={selectedFriend} friend={friend}
+                                       key={friend.id}/>)}
     </ul>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-function Friend({friend}: { friend: Friend }) {
-    return <li>
+function Friend({friend, onSelection, selectedFriend}: {
+    friend: Friend,
+    selectedFriend: Friend | null,
+    onSelection: (friend: Friend) => void
+}) {
+
+    let isSelected;
+    if (selectedFriend) isSelected = selectedFriend.id === friend.id;
+
+
+    return <li className={isSelected ? "selected" : ""}>
         <img src={friend.image} alt={friend.name}/>
         <h3>{friend.name}</h3>
         {friend.balance < 0 && (<p className={"red"}>
@@ -55,7 +82,7 @@ function Friend({friend}: { friend: Friend }) {
         {friend.balance === 0 && (<p>
             You and {friend.name} are even
         </p>)}
-        <SubmitButton>Select</SubmitButton>
+        <SubmitButton onClick={() => onSelection(friend)}>{isSelected ? "Close" : "Select"}</SubmitButton>
     </li>
 }
 
@@ -100,22 +127,27 @@ function FormAddFriend({onAddFriend}: { onAddFriend: (friend: Friend) => void })
     </form>
 }
 
-function FormSplitBill() {
+function FormSplitBill({selectedFriend}: { selectedFriend: Friend }) {
+
+    const [bill, setBill] = useState(0)
+    const [paidByUser, setPaidByUser] = useState(0)
+    const [payer, setPayer] = useState("user")
+
     return <form className={"form-split-bill"}>
-        <h2>Split a bill with X</h2>
+        <h2>Split a bill with {selectedFriend.name}</h2>
         <label>💰 Bill value</label>
-        <input type={"text"}/>
+        <input value={bill} onChange={e => setBill(Number(e.target.value))} type={"text"}/>
 
         <label>💰 Your expense</label>
-        <input type={"text"}/>
+        <input value={paidByUser} onChange={e => setPaidByUser(Number(e.target.value))} type={"text"}/>
 
-        <label>🧑‍🤝‍🧑X's expense</label>
+        <label>🧑‍🤝‍🧑{selectedFriend.name}'s expense</label>
         <input type={"text"} disabled/>
 
         <label>🧑‍🤝‍🧑Who is paying the bill</label>
-        <select>
+        <select onChange={e => setPayer(e.target.value)}>
             <option value={"user"}>You</option>
-            <option value={"friend"}>X</option>
+            <option value={"friend"}>{selectedFriend.name}</option>
         </select>
 
         <SubmitButton>Split bill</SubmitButton>
