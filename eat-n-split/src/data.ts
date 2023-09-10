@@ -1,4 +1,4 @@
-export const initialFriends: { id: number, name: string, image: string, balance: number } [] = [
+export const initialFriends: { id: number | string, name: string, image: string, balance: number } [] = [
     {
         id: 118836,
         name: "Clark",

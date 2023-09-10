@@ -1,30 +1,43 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {initialFriends} from "./data";
 
 
 interface Friend {
-    id: number,
+    id: number | string,
     name: string,
     image: string,
     balance: number
 }
 
 function App() {
+    const [friends, setFriends] = useState([...initialFriends])
+    const [showAdFriend, setShowAdFriend] = useState(false)
+
+
+    function handleShowAddFriend() {
+        setShowAdFriend(show => !show)
+    }
+
+    function handleAddFriend(friend: Friend) {
+        setFriends(friends => [...friends, friend])
+        setShowAdFriend(false)
+    }
+
     return (
         <div className="app">
             <div className={"sidebar"}>
-                <FriendsList/>
-                <FormAddFriend/>
-                <SubmitButton>Add friend</SubmitButton>
+                <FriendsList friends={friends}/>
+                {showAdFriend && <FormAddFriend onAddFriend={handleAddFriend}/>}
+                <SubmitButton onClick={handleShowAddFriend}>{showAdFriend ? "Close" : "Add friend"}</SubmitButton>
             </div>
             <FormSplitBill/>
         </div>
     );
 }
 
-function FriendsList() {
+function FriendsList({friends}: { friends: Friend [] }) {
     return <ul>
-        {initialFriends.map(friend => <Friend friend={friend} key={friend.id}/>)}
+        {friends.map(friend => <Friend friend={friend} key={friend.id}/>)}
     </ul>
 }
 
@@ -46,17 +59,40 @@ function Friend({friend}: { friend: Friend }) {
     </li>
 }
 
-function SubmitButton({children}: { children: string }) {
-    return <button className={"button"}>{children}</button>
+function SubmitButton({children, onClick}: { children: string, onClick?: () => void }) {
+    return <button onClick={onClick} className={"button"}>{children}</button>
 }
 
-function FormAddFriend() {
-    return <form className={"form-add-friend"}>
+function FormAddFriend({onAddFriend}: { onAddFriend: (friend: Friend) => void }) {
+    const [name, setName] = useState("")
+    const [image, setImage] = useState("https://i.pravatar.cc/48")
+
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
+        if (!name || !image) return;
+
+        const id = crypto.randomUUID()
+        const newFriend = {
+            name,
+            image: `${image}?u=${id}`,
+            balance: 0,
+            id
+        }
+        onAddFriend(newFriend)
+
+        setName("")
+        setImage("https://i.pravatar.cc/48")
+
+
+    }
+
+    return <form className={"form-add-friend"} onSubmit={handleSubmit}>
         <label>🧑‍🤝‍🧑Friend name</label>
-        <input type={"text"}/>
+        <input value={name} onChange={(e) => setName(e.target.value)} type={"text"}/>
 
         <label>📸Image URL</label>
-        <input type={"text"}/>
+        <input value={image} onChange={(e) => setImage(e.target.value)} type={"text"}/>
 
         <SubmitButton>Add</SubmitButton>
 
